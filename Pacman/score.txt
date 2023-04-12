@@ -1,0 +1,10 @@
+nguye : 4460
+Nguyen dep trai: 2600
+Unknown: 750
+Unknown: 740
+Nguyen: 320
+Unknown: 280
+0
+0
+0
+0
