@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _PACMAN_H_
 #define _PACMAN_H_

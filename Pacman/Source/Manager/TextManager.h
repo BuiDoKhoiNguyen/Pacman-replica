@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _TEXTMANAGER_H_
 #define _TEXTMANAGER_H_

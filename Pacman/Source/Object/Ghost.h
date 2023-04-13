@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _GHOST_H_
 #define _GHOST_H_

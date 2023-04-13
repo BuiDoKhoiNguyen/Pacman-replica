@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _SOUNDMANAGER_H_
 #define _SOUNDMANAGER_H_

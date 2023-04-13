@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _PLAYSTATEMANAGER_H_
 #define _PLAYSTATEMANAGER_H_

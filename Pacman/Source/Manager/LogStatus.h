@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _LOGSTATUS_H_
 #define _LOGSTATUS_H_

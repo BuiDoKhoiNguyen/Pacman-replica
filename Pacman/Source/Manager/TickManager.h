@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _TICKMANAGER_H_
 #define _TICKMANAGER_H_

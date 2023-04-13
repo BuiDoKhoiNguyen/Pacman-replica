@@ -1,4 +1,4 @@
-#include "TextureSrc.h"
+    #include "TextureSrc.h"
 
 TextureSrc::TextureSrc() {
     tileTexture = nullptr;
@@ -28,6 +28,7 @@ bool TextureSrc::pacmanIsDead() {
     return false;
 }
 
+//take picture for the map
 void TextureSrc::loadTileTexture(SDL_Renderer*& renderer) {
     SDL_Surface* Image = IMG_Load("Source/Assets/Entity Image/Pacman Tile Labyrinth.png");
 
@@ -37,6 +38,7 @@ void TextureSrc::loadTileTexture(SDL_Renderer*& renderer) {
     else {
         tileTexture = SDL_CreateTextureFromSurface(renderer, Image);
 
+        //cut each the frame in "Pacman Til Labytinth"
         int x = 0, y = 0;
         for (int i = 0; i < 32; ++i) {
             tileSprite[i] = { x, y, 16, 16 };
@@ -55,6 +57,7 @@ void TextureSrc::renderTileTexture(SDL_Renderer*& renderer, int tileID, SDL_Rect
     SDL_RenderCopy(renderer, tileTexture, &tileSprite[tileID], dsRect);
 }
 
+//take picture for object
 void TextureSrc::loadPacmanAndGhostTexture(SDL_Renderer*& renderer) {
     SDL_Surface* Image = IMG_Load("Source/Assets/Entity Image/Pacman and Ghost Texture.png");
 
@@ -69,11 +72,11 @@ void TextureSrc::loadPacmanAndGhostTexture(SDL_Renderer*& renderer) {
         /// Pacman goes up
         for (int i = 0; i < 3; ++i)  pacmanUP[i] = { posTexX, posTexY, 30, 30 }, posTexX += 31;
         /// Pacman goes down
-        for (int i = 3; i < 6; ++i)  pacmanDOWN[i % 3] = { posTexX, posTexY, 30, 30 }, posTexX += 31;
+        for (int i = 0; i < 3; ++i)  pacmanDOWN[i] = { posTexX, posTexY, 30, 30 }, posTexX += 31;
         /// Pacman goes left
-        for (int i = 6; i < 9; ++i)  pacmanLEFT[i % 3] = { posTexX, posTexY, 30, 30 }, posTexX += 31;
+        for (int i = 0; i < 3; ++i)  pacmanLEFT[i] = { posTexX, posTexY, 30, 30 }, posTexX += 31;
         /// Pacman goes right
-        for (int i = 9; i < 12; ++i) pacmanRIGHT[i % 3] = { posTexX, posTexY, 30, 30 }, posTexX += 31;
+        for (int i = 0; i < 3; ++i) pacmanRIGHT[i] = { posTexX, posTexY, 30, 30 }, posTexX += 31;
         /// Pacman dead
         posTexX = 0;
         for (int i = 0; i < 11; ++i) pacmanDEAD[i] = { posTexX, 155, 30, 30 }, posTexX += 31;
@@ -121,18 +124,18 @@ void TextureSrc::loadPacmanAndGhostTexture(SDL_Renderer*& renderer) {
 
 void TextureSrc::renderPacmanTexture(SDL_Renderer*& renderer, int posX, int posY, int status) {
     SDL_Rect srcRect, dsRect;
-    dsRect = { posX - 7 + 217, posY - 7, 30, 30 };
+    dsRect = { posX - 7 + 217, posY - 7, 30, 30 }; //intialize position
     ++pacmanFrame;
 
     if (status != DEAD_PACMAN && pacmanFrame == 30) pacmanFrame = 0;
 
     switch (status) {
-    case -1: srcRect = pacmanUP[0]; break;
-    case UP:    srcRect = pacmanUP[pacmanFrame / 10]; break;
-    case RIGHT: srcRect = pacmanRIGHT[pacmanFrame / 10]; break;
-    case DOWN:  srcRect = pacmanDOWN[pacmanFrame / 10]; break;
-    case LEFT:  srcRect = pacmanLEFT[pacmanFrame / 10]; break;
-    case DEAD_PACMAN: srcRect = pacmanDEAD[pacmanFrame / 10]; break;
+        case -1: srcRect = pacmanUP[0]; break;
+        case UP:    srcRect = pacmanUP[pacmanFrame / 10]; break;
+        case RIGHT: srcRect = pacmanRIGHT[pacmanFrame / 10]; break;
+        case DOWN:  srcRect = pacmanDOWN[pacmanFrame / 10]; break;
+        case LEFT:  srcRect = pacmanLEFT[pacmanFrame / 10]; break;
+        case DEAD_PACMAN: srcRect = pacmanDEAD[pacmanFrame / 10]; break;
     }
 
     SDL_RenderCopy(renderer, entityTexture, &srcRect, &dsRect);
@@ -140,33 +143,34 @@ void TextureSrc::renderPacmanTexture(SDL_Renderer*& renderer, int posX, int posY
 
 void TextureSrc::renderGhostTexture(SDL_Renderer*& renderer, int posX, int posY, int ghostID, int status) {
     SDL_Rect srcRect, dsRect;
-    dsRect = { posX - 7 + 217, posY - 7, 30, 30 };
+    dsRect = { posX - 7 + 217, posY - 7, 30, 30 };//each ghost have different initialize position, so i add ghostID
     ++ghostFrame[ghostID];
 
     if (ghostFrame[ghostID] == 14) ghostFrame[ghostID] = 0;
 
     switch (status) {
-    case UP:    srcRect = ghost[ghostID][UP][ghostFrame[ghostID] / 7]; break;
-    case RIGHT: srcRect = ghost[ghostID][RIGHT][ghostFrame[ghostID] / 7]; break;
-    case DOWN:  srcRect = ghost[ghostID][DOWN][ghostFrame[ghostID] / 7]; break;
-    case LEFT:  srcRect = ghost[ghostID][LEFT][ghostFrame[ghostID] / 7]; break;
-    case FRIGHTEN_GHOST_1: srcRect = ghost[ghostID][FRIGHTEN_GHOST_1][ghostFrame[ghostID] / 7]; break;
-    case FRIGHTEN_GHOST_2:
-        if (ghostFrame[ghostID] / 7 == 0) srcRect = ghost[ghostID][FRIGHTEN_GHOST_1][ghostFrame[ghostID] / 7];
-        else srcRect = ghost[ghostID][FRIGHTEN_GHOST_2][ghostFrame[ghostID] / 7];
-        break;
+        case UP:    srcRect = ghost[ghostID][UP][ghostFrame[ghostID] / 7]; break;
+        case RIGHT: srcRect = ghost[ghostID][RIGHT][ghostFrame[ghostID] / 7]; break;
+        case DOWN:  srcRect = ghost[ghostID][DOWN][ghostFrame[ghostID] / 7]; break;
+        case LEFT:  srcRect = ghost[ghostID][LEFT][ghostFrame[ghostID] / 7]; break;
+        case FRIGHTEN_GHOST_1: srcRect = ghost[ghostID][FRIGHTEN_GHOST_1][ghostFrame[ghostID] / 7]; break;
+        case FRIGHTEN_GHOST_2:
+            if (ghostFrame[ghostID] / 7 == 0) srcRect = ghost[ghostID][FRIGHTEN_GHOST_1][ghostFrame[ghostID] / 7];
+            else srcRect = ghost[ghostID][FRIGHTEN_GHOST_2][ghostFrame[ghostID] / 7];
+            break;
     }
 
     SDL_RenderCopy(renderer, entityTexture, &srcRect, &dsRect);
 }
 
+//dont know what the function of this method ???
 void TextureSrc::renderGhostScore(SDL_Renderer*& renderer, const int eatenGhostPosX, const int eatenGhostPosY, const int eatenGhostStreak) {
     SDL_Rect srcRect, dsRect;
     switch (eatenGhostStreak) {
-    case 0: srcRect = { 0,  0, 50, 50 }; break;
-    case 1: srcRect = { 50,  0, 50, 50 }; break;
-    case 2: srcRect = { 0, 50, 50, 50 }; break;
-    case 3: srcRect = { 50, 50, 50, 50 }; break;
+        case 0: srcRect = { 0,  0, 50, 50 }; break;
+        case 1: srcRect = { 50,  0, 50, 50 }; break;
+        case 2: srcRect = { 0, 50, 50, 50 }; break;
+        case 3: srcRect = { 50, 50, 50, 50 }; break;
     }
     dsRect = { eatenGhostPosX + 210, eatenGhostPosY - 7, 30, 30 };
     SDL_RenderCopy(renderer, ghostScore, &srcRect, &dsRect);

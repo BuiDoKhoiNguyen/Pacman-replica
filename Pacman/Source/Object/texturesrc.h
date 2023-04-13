@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef _TEXTURESRC_H_
 #define _TEXTURESRC_H_
@@ -10,10 +9,11 @@
 class TextureSrc {
 private:
     LogStatus* Console = new LogStatus("TextureSrc");
-
+    //map texture
     SDL_Texture* tileTexture;
     SDL_Rect tileSprite[32];
 
+    //object texture
     SDL_Texture* entityTexture;
     SDL_Texture* ghostScore;
     SDL_Rect pacmanUP[3];
