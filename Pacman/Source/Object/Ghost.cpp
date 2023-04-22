@@ -71,12 +71,14 @@ void Ghost::moving() {
     else ghostVelocity = 4;
 
     switch (ghostDir) {
-    case UP:    velY -= ghostVelocity; dir = UP;    break;
-    case DOWN:  velY += ghostVelocity; dir = DOWN;  break;
-    case LEFT:  velX -= ghostVelocity; dir = LEFT;  break;
-    case RIGHT: velX += ghostVelocity; dir = RIGHT; break;
+        case UP:    velY -= ghostVelocity; dir = UP;    break;
+        case DOWN:  velY += ghostVelocity; dir = DOWN;  break;
+        case LEFT:  velX -= ghostVelocity; dir = LEFT;  break;
+        case RIGHT: velX += ghostVelocity; dir = RIGHT; break;
     }
+
     changeVelocityDir(velX, velY, dir);
+    
     move();
 }
 

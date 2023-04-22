@@ -17,7 +17,7 @@ TickManager::TickManager() {
 bool TickManager::isScatteringTime() const {
     return mode.top().first == SCATTERING_MODE;
 }
-
+//when pacman eat power dot
 void TickManager::setFrightenTime() {
     lastStatus = mode.top().first;
     mode.pop();

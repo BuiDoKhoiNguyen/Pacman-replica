@@ -8,7 +8,7 @@
 
 class Button {
 private:
-    SDL_Rect buttonRect;
+    SDL_Rect buttonRect;    
     TextManager* normalText;
     TextManager* selectText;
     TextManager* selectTextDetail;
@@ -20,12 +20,12 @@ public:
     static const int BUTTON_IN = 1;
     static const int BUTTON_PRESSED = 2;
     static const int MENU_FONT_SIZE = 28;
-    const SDL_Color normalColor = { 0, 0, 0, 255 };
-    const SDL_Color selectColor = { 254, 233, 0, 255 };
+    SDL_Color normalColor = { 255, 255, 255, 255 };
+    SDL_Color selectColor = { 0, 0, 0, 255 };
 
     Button(int Width, int Height, int scrPosX, int scrPosY);
 
-    void loadButton(SDL_Renderer*& renderer, std::string text = "");
+    void loadButton(SDL_Renderer*& renderer, std::string text = "", bool isMenu=true);
 
     void renderButton(SDL_Renderer*& renderer);
 

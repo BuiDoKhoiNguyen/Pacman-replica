@@ -42,54 +42,9 @@ protected:
 
     void renderGhost(SDL_Renderer*& renderer, Ghost*& ghost, int ghostID);
 public:
-    Engine() {
-        map = nullptr;
-        pacman = nullptr;
-        blinky = nullptr;
-        pinky = nullptr;
-        clyde = nullptr;
-        inky = nullptr;
-        greendy = nullptr;
-        friendy = nullptr;
-        apple = nullptr;
-        objectTexture = nullptr;
-        tickManager = nullptr;
-        gameManager = nullptr;
-        soundManager = nullptr;
-    }
+    Engine();
 
-    ~Engine() {
-        delete map;
-        map = nullptr;
-        delete pacman;
-        pacman = nullptr;
-        delete blinky;
-        blinky = nullptr;
-        delete pinky;
-        pinky = nullptr;
-        delete clyde;
-        clyde = nullptr;
-        delete inky;
-        inky = nullptr;
-        delete greendy;
-        greendy = nullptr;
-        delete friendy;
-        friendy = nullptr;
-        delete apple;
-        apple = nullptr;
-        SDL_DestroyTexture(nextLevel);
-        nextLevel = nullptr;
-        SDL_DestroyTexture(ready);
-        ready = nullptr;
-        delete objectTexture;
-        objectTexture = nullptr;
-        delete tickManager;
-        tickManager = nullptr;
-        delete gameManager;
-        gameManager = nullptr;
-        delete soundManager;
-        soundManager = nullptr;
-    }
+    ~Engine();
 
     void newGame();
 

@@ -1,10 +1,10 @@
+Nguyentest2: 5060
 nguye : 4460
 Unknown: 3120
 Nguyen dep trai: 2600
-Unknown: 750
-Unknown: 740
-Nguyen: 320
-Unknown: 280
+Unknown: 2560
+Unknownlonkajnguyen: 1050
+0
 0
 0
 0

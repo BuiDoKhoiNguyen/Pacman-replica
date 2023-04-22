@@ -8,12 +8,65 @@ using namespace std;
 typedef std::pair<int, int> II;
 typedef std::pair<int, std::pair<int, int> > IP;
 
+Engine::Engine()
+{
+    map = nullptr;
+    pacman = nullptr;
+    blinky = nullptr;
+    pinky = nullptr;
+    clyde = nullptr;
+    inky = nullptr;
+    greendy = nullptr;
+    friendy = nullptr;
+    apple = nullptr;
+    objectTexture = nullptr;
+    tickManager = nullptr;
+    gameManager = nullptr;
+    soundManager = nullptr;
+}
+
+Engine::~Engine()
+{
+    delete map;
+    map = nullptr;
+    delete pacman;
+    pacman = nullptr;
+    delete blinky;
+    blinky = nullptr;
+    delete pinky;
+    pinky = nullptr;
+    delete clyde;
+    clyde = nullptr;
+    delete inky;
+    inky = nullptr;
+    delete greendy;
+    greendy = nullptr;
+    delete friendy;
+    friendy = nullptr;
+    delete apple;
+    apple = nullptr;
+    SDL_DestroyTexture(nextLevel);
+    nextLevel = nullptr;
+    SDL_DestroyTexture(ready);
+    ready = nullptr;
+    delete objectTexture;
+    objectTexture = nullptr;
+    delete tickManager;
+    tickManager = nullptr;
+    delete gameManager;
+    gameManager = nullptr;
+    delete soundManager;
+    soundManager = nullptr;    
+}
+
 void Engine::init(SDL_Renderer*& renderer) {
     /// initialize map
     map = new Map();
     /// initialize object
     objectTexture = new TextureSrc();
+    //load map
     objectTexture->loadTileTexture(renderer);
+    //load Pacman and Ghost
     objectTexture->loadPacmanAndGhostTexture(renderer);
     /// tick, gameplay manager
     tickManager = new TickManager();
@@ -37,7 +90,7 @@ void Engine::newGame() {
     delete pacman;
     pacman = new Pacman();
     delete blinky;
-    if (gameManager->getLevel() < 5)
+    if (gameManager->getLevel() < 2)
         blinky = new Ghost(13, 11, false);
     else
         blinky = new Ghost(12, 11, false);
@@ -47,12 +100,12 @@ void Engine::newGame() {
     inky = new Ghost(11, 14, true);
     delete clyde;
     clyde = new Ghost(15, 14, true);
-    if (gameManager->getLevel() >= 3) {
+    if (gameManager->getLevel() >= 1 ) {
         apple->spawnAt(1, 1);
         delete greendy;
         greendy = new Ghost(12, 15, true);
     }
-    if (gameManager->getLevel() >= 5) {
+    if (gameManager->getLevel() >= 1) {
         delete friendy;
         friendy = new Ghost(14, 11, false);
     }
@@ -160,7 +213,8 @@ void Engine::render(SDL_Renderer*& renderer, const std::vector<std::string>& sco
             objectTexture->renderTileTexture(renderer, map->getTileID(i, j), &dsRect);
         }
     }
-    if (gameManager->getLevel() >= 3 && !apple->isDestroyed()) apple->renderItem(renderer);
+    //level to add apple
+    if (gameManager->getLevel() >= 1 && !apple->isDestroyed()) apple->renderItem(renderer);
 
     if (!runningEGBoard) {
         int dir = -1;

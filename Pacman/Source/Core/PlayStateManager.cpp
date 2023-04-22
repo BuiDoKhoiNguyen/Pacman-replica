@@ -21,7 +21,8 @@ void PlayStateManager::newGame(SDL_Renderer*& renderer) {
     static bool inited = false;
     if (!inited) {
         this->scoreData = scoreData;
-        pauseMenu->init(renderer, "Source/Assets/Menu Image/Pacman Pause Menu.png", pauseMenuButtonText);
+        //intit paumenu
+        pauseMenu->init(renderer, "Source/Assets/Menu Image/Pause Menu.png", pauseMenuButtonText);
         engine->init(renderer);
         inited = true;
     }

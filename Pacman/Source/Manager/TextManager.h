@@ -13,7 +13,8 @@ private:
     SDL_Texture* textTexture;
     SDL_Surface* textSurface;
 public:
-    const std::string FONT_NAME = "Source/Assets/Font/Blogger Sans-Bold.ttf";
+    const std::string FONT_NAME = "Source/Assets/Font/Blogger Sans-Bold.ttf";\
+    //dinh dang le giong word
     static const int CENTER = 0;
     static const int LEFT = 1;
 

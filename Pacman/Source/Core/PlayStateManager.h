@@ -18,7 +18,7 @@ private:
     bool running = true;
     bool runPauseMenu = false;
 public:
-    std::vector<std::string> pauseMenuButtonText = { "Resume", "New Game", "How to Play", "Sound: ON", "Exit to Start Menu" };
+    std::vector<std::string> pauseMenuButtonText = { "Resume", "New Game", "Sound: ON", "Exit to Start Menu" };
     PlayStateManager();
 
     ~PlayStateManager();

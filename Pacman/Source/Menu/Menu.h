@@ -12,7 +12,7 @@
 
 class Menu {
 private:
-    int alphaMod = 1;
+    //int alphaMod = 1;
     int arrowHSPos;
     int currentButtonID;
     int currentMenuStatus;
@@ -23,6 +23,7 @@ private:
     int MENU_BUTTON_HEIGHT;
     int baseScrPosX;
     int baseScrPosY;
+    bool isMenu=false;
 
     TextManager* scoreText = nullptr;
     Mix_Chunk* navigationSound = Mix_LoadWAV("Source/Assets/Sound/button.wav");
@@ -30,7 +31,7 @@ private:
     SDL_Texture* menuTexture;
     SDL_Texture* howToPlayTexture[3];
     SDL_Texture* highScoreTexture;
-    SDL_Texture* arrowTexture;
+    //SDL_Texture* arrowTexture;
     std::vector<Button* > menuButton;
 
     LogStatus* console = new LogStatus("Menu");
@@ -69,3 +70,4 @@ public:
 };
 
 #endif // _MENU_H_
+ 

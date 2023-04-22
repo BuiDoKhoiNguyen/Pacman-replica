@@ -166,12 +166,12 @@ void GameManager::handleEGBoard(SDL_Event& e, std::vector<std::string>& scoreDat
             if (e.key.keysym.sym == SDLK_BACKSPACE && playername.length() > 0) {
                 playername.pop_back();
             }
-            else if (e.key.keysym.sym == SDLK_c && (SDL_GetModState() & KMOD_CTRL)) {
-                SDL_SetClipboardText(playername.c_str());
-            }
-            else if (e.key.keysym.sym == SDLK_v && (SDL_GetModState() & KMOD_CTRL)) {
-                playername = SDL_GetClipboardText();
-            }
+            // else if (e.key.keysym.sym == SDLK_c && (SDL_GetModState() & KMOD_CTRL)) {
+            //     SDL_SetClipboardText(playername.c_str());
+            // }
+            // else if (e.key.keysym.sym == SDLK_v && (SDL_GetModState() & KMOD_CTRL)) {
+            //     playername = SDL_GetClipboardText();
+            // }
         }
         else if (e.type == SDL_TEXTINPUT) {
             if (!(SDL_GetModState() & KMOD_CTRL && (e.text.text[0] == 'c' || e.text.text[0] == 'C' || e.text.text[0] == 'v' || e.text.text[0] == 'V')) && playername.length() < 22)
@@ -209,12 +209,15 @@ void GameManager::runEGBoard(SDL_Renderer*& renderer) {
     if (newRecord) {
         SDL_RenderCopy(renderer, hsBoard, nullptr, &dsRect);
         static int caretTime = 0;
+        //dấu nháy
         SDL_Rect caret = { 395 + playerName->getTextWidth(), 265, 2, 20 };
         if (caretTime % 20 > 10) {
             SDL_RenderFillRect(renderer, &caret);
         }
         ++caretTime;
         caretTime %= 20;
+
+        //render player name
         if (playername != "") {
             playerName->loadRenderText(renderer, playername.c_str(), { 0, 0, 0, 255 });
             playerName->renderText(renderer, 395, 268, TextManager::LEFT);

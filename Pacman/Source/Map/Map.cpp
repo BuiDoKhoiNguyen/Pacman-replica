@@ -1,5 +1,6 @@
 #include "Map.h"
 #include <queue>
+#include <cstring>
 
 typedef std::pair<int, int> II;
 
@@ -20,12 +21,13 @@ Map::Map() {
                     }
                 }
             }
-
+            file.close();
             Console->Status("Map read successfully!");
-        }
+        }   
         else Console->Status("Error reading file!");
     }
-
+    
+    //set tile = premanMap
     for (int i = 0; i < MAP_HEIGHT; ++i)
         for (int j = 0; j < MAP_WIDTH; ++j)
             tile[i][j] = premanMap[i][j];
@@ -76,22 +78,24 @@ bool Map::besideCrossIsWall(std::pair<int, int> Cross, int newDir) {
     else Cross.first -= 1;
     return isWall(Cross);
 }
-
+//check road 
 void Map::findingCrossRoad() {
     for (int x = 0; x < MAP_WIDTH; ++x) {
         for (int y = 0; y < MAP_HEIGHT; ++y) {
             for (int dir = 0; dir < 4; ++dir) markCross[y][x][dir] = false;
-
+            //26 is dot, 27 is powerdot, 30 is nothing 
+            //unable to move -> continue
             if (tile[y][x] != 26 && tile[y][x] != 27 && tile[y][x] != 30) continue;
-
-            if (y > 0 && (tile[y - 1][x] == 26 || tile[y - 1][x] == 27 || tile[y - 1][x] == 30)) markCross[y][x][0] = true;
-            if (y < 30 && (tile[y + 1][x] == 26 || tile[y + 1][x] == 27 || tile[y + 1][x] == 30)) markCross[y][x][2] = true;
-            if (x > 0 && (tile[y][x - 1] == 26 || tile[y][x - 1] == 27 || tile[y][x - 1] == 30)) markCross[y][x][3] = true;
-            if (x < 27 && (tile[y][x + 1] == 26 || tile[y][x + 1] == 27 || tile[y][x + 1] == 30)) markCross[y][x][1] = true;
+            //able to move 
+            if (y > 0 && (tile[y - 1][x] == 26 || tile[y - 1][x] == 27 || tile[y - 1][x] == 30)) markCross[y][x][UP] = true;
+            if (y < 30 && (tile[y + 1][x] == 26 || tile[y + 1][x] == 27 || tile[y + 1][x] == 30)) markCross[y][x][DOWN] = true;
+            if (x > 0 && (tile[y][x - 1] == 26 || tile[y][x - 1] == 27 || tile[y][x - 1] == 30)) markCross[y][x][LEFT] = true;
+            if (x < 27 && (tile[y][x + 1] == 26 || tile[y][x + 1] == 27 || tile[y][x + 1] == 30)) markCross[y][x][RIGHT] = true;
         }
     }
 }
 
+//check the next tile unable to turn left, right, up or down
 void Map::NextCrossTileID() {
     for (int y = 0; y < MAP_HEIGHT; ++y) {
         nextCrossID[y][0][LEFT] = II(-1, -1);
@@ -138,51 +142,105 @@ void Map::NextCrossTileID() {
     }
 }
 
+//BFS find shortest way for ghost to return cage
 void Map::calculateDistance() {
-    for (int x = 0; x < MAP_WIDTH; ++x)
-        for (int y = 0; y < MAP_HEIGHT; ++y)
-            for (int u = 0; u < MAP_WIDTH; ++u)
-                for (int v = 0; v < MAP_HEIGHT; ++v)
-                    for (int dir = 0; dir < 4; ++dir)
-                        dist[x * MAP_HEIGHT + y][u * MAP_HEIGHT + v][dir] = -1;
-    //std::cout << 1;
-    int id = 0;
-    int dh[4] = { 0, 1, 0, -1 };
-    int dc[4] = { -1, 0, 1,  0 };
-    int dis[MAP_WIDTH * MAP_HEIGHT];
-    std::queue< std::pair<int, int> > visitNode;
-    for (int x = 0; x < MAP_WIDTH; ++x) {
-        for (int y = 0; y < MAP_HEIGHT; ++y) {
-            if (isWall(std::pair<int, int>(x, y))) continue;
-            if (y == 14 && (x == 0 || x == 27)) continue;
+    // for (int x = 0; x < MAP_WIDTH; ++x)
+    //     for (int y = 0; y < MAP_HEIGHT; ++y)
+    //         for (int u = 0; u < MAP_WIDTH; ++u)
+    //             for (int v = 0; v < MAP_HEIGHT; ++v)
+    //                 for (int dir = 0; dir < 4; ++dir)
+    //                     dist[x * MAP_HEIGHT + y][u * MAP_HEIGHT + v][dir] = -1;
+    // //std::cout << 1;
+    // int id = 0;
+    // int dh[4] = { 0, 1, 0, -1 };
+    // int dc[4] = { -1, 0, 1,  0 };
+    // int dis[MAP_WIDTH * MAP_HEIGHT];
+    // std::queue< std::pair<int, int> > visitNode;
+    // for (int x = 0; x < MAP_WIDTH; ++x) {
+    //     for (int y = 0; y < MAP_HEIGHT; ++y) {
+    //         if (isWall(std::pair<int, int>(x, y))) continue;
+    //         if (y == 14 && (x == 0 || x == 27)) continue;
 
-            for (int startDir = 0; startDir < 4; ++startDir) {
-                int xn = x + dh[startDir], yn = y + dc[startDir];
-                if (isWall(std::pair<int, int>(xn, yn))) continue;
-                for (int i = 0; i < MAP_HEIGHT * MAP_WIDTH; ++i) dis[i] = -1;
-                ++id;
-                color[yn][xn] = id;
-                dis[xn * MAP_HEIGHT + yn] = 0;
-                visitNode.push(std::pair<int, int>(yn * MAP_WIDTH + xn, startDir));
-                while (!visitNode.empty()) {
-                    int curx = visitNode.front().first % MAP_WIDTH,
-                        cury = visitNode.front().first / MAP_WIDTH,
-                        lasDir = visitNode.front().second;
-                    visitNode.pop();
-                    if (cury == 14 && (curx == 0 || curx == 27)) continue;
-                    for (int dir = 0; dir < 4; ++dir) {
-                        int u = curx + dh[dir], v = cury + dc[dir];
-                        if (lasDir % 2 == dir % 2 && dir != lasDir) continue;
-                        if (isWall(std::pair<int, int>(u, v))) continue;
-                        if (color[v][u] != id) {
-                            color[v][u] = id;
-                            dis[u * MAP_HEIGHT + v] = dis[curx * MAP_HEIGHT + cury] + 1;
-                            visitNode.push(std::pair<int, int>(v * MAP_WIDTH + u, dir));
+    //         for (int startDir = 0; startDir < 4; ++startDir) {
+    //             int xn = x + dh[startDir], yn = y + dc[startDir];
+    //             if (isWall(std::pair<int, int>(xn, yn))) continue;
+    //             for (int i = 0; i < MAP_HEIGHT * MAP_WIDTH; ++i) dis[i] = -1;
+    //             ++id;
+    //             color[yn][xn] = id;
+    //             dis[xn * MAP_HEIGHT + yn] = 0;
+    //             visitNode.push(std::pair<int, int>(yn * MAP_WIDTH + xn, startDir));
+    //             while (!visitNode.empty()) {
+    //                 int curx = visitNode.front().first % MAP_WIDTH,
+    //                     cury = visitNode.front().first / MAP_WIDTH,
+    //                     lasDir = visitNode.front().second;
+    //                 visitNode.pop();
+    //                 if (cury == 14 && (curx == 0 || curx == 27)) continue;
+    //                 for (int dir = 0; dir < 4; ++dir) {
+    //                     int u = curx + dh[dir], v = cury + dc[dir];
+    //                     if (lasDir % 2 == dir % 2 && dir != lasDir) continue;
+    //                     if (isWall(std::pair<int, int>(u, v))) continue;
+    //                     if (color[v][u] != id) {
+    //                         color[v][u] = id;
+    //                         dis[u * MAP_HEIGHT + v] = dis[curx * MAP_HEIGHT + cury] + 1;
+    //                         visitNode.push(std::pair<int, int>(v * MAP_WIDTH + u, dir));
+    //                     }
+    //                 }
+    //             }
+    //             for (int i = 0; i < MAP_WIDTH * MAP_HEIGHT; ++i)
+    //                 dist[xn * MAP_HEIGHT + yn][i][startDir] = dis[i];
+    //         }
+    //     }
+    // }
+    // std::cout << "Done!";
+    const int dx[4] = {1, 0, -1, 0};
+    const int dy[4] = {0, 1, 0, -1};
+
+    std::memset(dist, -1, sizeof dist);
+
+    std::queue<std::tuple<int, int, int>> q;
+    bool visited[30][28];
+    for (int i = 0; i < 28; ++i) {
+        for (int j = 0; j < 30; ++j) {
+            if (isWall({j, i})) continue;
+
+            for (int dir = 0; dir < 4; ++dir) {
+                int x = j + dx[dir];
+                int y = i + dy[dir];
+
+                if (isWall({x, y})) continue;
+
+                std::memset(visited, false, sizeof visited);
+
+                int curDist = 0;
+
+                q.emplace(x, y, dir);
+                visited[y][x] = true;
+
+                while (!q.empty()) {
+                    int s = q.size();
+
+                    while (s-- > 0) {
+                        int cx, cy, cdir; 
+                        std::tie(cx, cy, cdir) = q.front();
+                        q.pop();
+
+                        dist[(i * 30 + j)][(cy * 30 + cx)][dir] = curDist;
+
+                        for (int nd = 0; nd < 4; ++nd) {
+                            int nx = cx + dx[nd];
+                            int ny = cy + dy[nd];
+
+                            if (!isWall({nx, ny})
+                                && !visited[ny][nx]
+                                && (nd == cdir || nd + cdir == 3)
+                            ) {
+                                visited[ny][nx] = true;
+                                q.emplace(nx, ny, nd);
+                            }
                         }
                     }
+                    ++curDist;
                 }
-                for (int i = 0; i < MAP_WIDTH * MAP_HEIGHT; ++i)
-                    dist[xn * MAP_HEIGHT + yn][i][startDir] = dis[i];
             }
         }
     }

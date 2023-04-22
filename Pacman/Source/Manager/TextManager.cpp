@@ -37,6 +37,7 @@ void TextManager::loadRenderText(SDL_Renderer*& renderer, std::string text, SDL_
 void TextManager::renderText(SDL_Renderer*& renderer, int scrPosX, int scrPosY, const int type) {
     dsRect = { scrPosX, scrPosY, textSurface->w, textSurface->h };
     if (type == CENTER) {
+        //position of menu text
         dsRect.x = scrPosX - textSurface->w / 2;
         dsRect.y = scrPosY - textSurface->h / 2;
     }

@@ -103,8 +103,9 @@ void Window::quitSDL() {
 }
 
 void Window::runGame() {
-    startMenu = new Menu(262, 170, startMenuButtonText.size(), 320, 30);
-    startMenu->init(renderer, "Source/Assets/Menu Image/Pacman Pause Menu.png", startMenuButtonText);
+    startMenu = new Menu(420, 320, startMenuButtonText.size(), 280, 30);
+    //init menu 262, 170
+    startMenu->init(renderer, "Source/Assets/Menu Image/menu.png", startMenuButtonText);
     startMenu->changeRunStatus();
 
     SDL_Event e;
@@ -114,7 +115,7 @@ void Window::runGame() {
 
     while (Running) {
 
-        while (SDL_PollEvent(&e) != 0) {
+        while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) Running = false;
             else {
                 if (runningMenu) {
