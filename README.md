@@ -53,8 +53,6 @@
     -------------------------------
     Firstly, let's talk about the algorithm for the ghosts to chase `Pacman`.
 
-   The ghosts have several properties as follows: 
-
     The ghosts have several properties as follows: 
     - `tileX`: current tile position on Ox axis. 
     - `tileY`: current tile position on Oy axis.
