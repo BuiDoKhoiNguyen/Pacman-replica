@@ -8,6 +8,7 @@
 #include <vector>
 #include "../Object/Ghost.h"
 #include "TextManager.h"
+#include "../Object/Item.h"
 #include "../Menu/Button.h"
 
 class GameManager {
@@ -38,6 +39,7 @@ private:
     SDL_Texture* hsBoard;
     Button* yesBut;
     Button* noBut;
+    Item* remainLife;
     Mix_Chunk* navigationSound = Mix_LoadWAV("Source/Assets/Sound/button.wav");
 protected:
     SDL_Texture* loadImage(SDL_Renderer*& renderer, const std::string imagePath);

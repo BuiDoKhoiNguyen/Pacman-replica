@@ -40,3 +40,12 @@ void Item::renderItem(SDL_Renderer*& renderer) {
     SDL_Rect dsRect = { tileX * 16 + 210, tileY * 16 - 7, 30, 30 };
     SDL_RenderCopy(renderer, itemTexture, nullptr, &dsRect);
 }
+
+void Item::renderLife(SDL_Renderer*& renderer,int life)
+{
+    for(int i=0;i<life ;i++)
+    {
+        SDL_Rect ds = {i*27+60,50,25,26};
+        SDL_RenderCopy(renderer, itemTexture, nullptr, &ds);
+    }
+}

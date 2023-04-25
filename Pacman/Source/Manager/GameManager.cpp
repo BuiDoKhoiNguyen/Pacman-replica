@@ -14,12 +14,13 @@ GameManager::GameManager(SDL_Renderer*& renderer) {
     PINKY_COIN_LIMIT = 5;
     INKY_COIN_LIMIT = 30;
     CLYDE_COIN_LIMIT = 90;
+    remainLife = new Item(renderer,"Source/Assets//Entity Image/pacman icon.png");
     liveText = new TextManager(28);
-    liveText->loadRenderText(renderer, "Lives:", { 255, 255, 255, 255 });
+    //liveText->loadRenderText(renderer, "Lives:", { 255, 255, 255, 255 });
     scoreText = new TextManager(28);
-    scoreText->loadRenderText(renderer, "Scores: 0", { 255, 255, 255, 255 });
+    //scoreText->loadRenderText(renderer, "Scores: 0", { 255, 255, 255, 255 });
     levelText = new TextManager(28);
-    levelText->loadRenderText(renderer, "Level: 1", { 255, 255, 255, 255 });
+    //levelText->loadRenderText(renderer, "Level: 1", { 255, 255, 255, 255 });
     playerName = new TextManager(20);
     playerName->loadRenderText(renderer, playername.c_str(), { 255, 255, 255, 255 });
     egBoard = loadImage(renderer, "Source/Assets/Menu Image/endgame.png");
@@ -146,6 +147,13 @@ void GameManager::handleGhostPos(Ghost*& pinky, Ghost*& inky, Ghost*& clyde, Gho
 void GameManager::renderHUD(SDL_Renderer*& renderer) {
     levelText->loadRenderText(renderer, "Level: " + std::to_string(level), { 255, 255, 255, 255 });
     levelText->renderText(renderer, 0, 0, TextManager::LEFT);
+    
+    // liveText->loadRenderText(renderer,"Life: ", {255, 255, 255 ,255});
+    // liveText->renderText(renderer, 0, 50, TextManager::LEFT);
+    // // for( int i=0;i<life;i++ )
+    // // {
+    // //     remainLife->renderLife(renderer,life);
+    // // } 
     liveText->loadRenderText(renderer, "Life: " + std::to_string(life), { 255, 255, 255, 255 });
     liveText->renderText(renderer, 0, 50, TextManager::LEFT);
     scoreText->loadRenderText(renderer, "Scores: " + std::to_string(scores), { 255, 255, 255, 255 });
@@ -210,6 +218,7 @@ void GameManager::runEGBoard(SDL_Renderer*& renderer) {
         SDL_RenderCopy(renderer, hsBoard, nullptr, &dsRect);
         static int caretTime = 0;
         //dấu nháy
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_Rect caret = { 395 + playerName->getTextWidth(), 265, 2, 20 };
         if (caretTime % 20 > 10) {
             SDL_RenderFillRect(renderer, &caret);

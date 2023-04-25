@@ -37,7 +37,7 @@ void Button::loadButton(SDL_Renderer*& renderer, std::string text,bool isMenu) {
 void Button::renderButton(SDL_Renderer*& renderer) {
     if (buttonStatus == BUTTON_IN) {
         //draw pointer with shape rectangle
-        SDL_SetRenderDrawColor(renderer, 255, 247, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 251, 69, 152, 255);
         SDL_RenderFillRect(renderer, &buttonRect);
         //render text inside rectangle to other color
         SDL_SetRenderDrawColor(renderer, selectColor.r, selectColor.g, selectColor.b, selectColor.a);

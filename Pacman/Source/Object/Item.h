@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
+#include <iostream>
 
 class Item {
 private:
@@ -27,6 +28,8 @@ public:
     void destroyItem();
 
     void renderItem(SDL_Renderer*& renderer);
+
+    void renderLife(SDL_Renderer*& renderer,int life);
 };
 
 #endif // _ITEM_H_
