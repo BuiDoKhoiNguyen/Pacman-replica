@@ -1,85 +1,85 @@
-# **PACMAN**
+# **PACMAN-replica**
 
-## Mục lục
-1. [Cách tải và cài đặt game](#cách-tải-và-chơi-game)
-2. [Cách chơi game](#cách-chơi-game)
-3. [Chi tiết về game](#chi-tiết-về-game)
-4. [Thuật toán của game](#thuật-toán-về-game) 
-5. [Nguồn ảnh và âm thanh](#nguồn-ảnh-và-âm-thanh)
+## Table of content
+1. [How to Download and install](#How-to-Download-and-Install)
+2. [How to Play the game](#How-to-play-the-game)
+3. [Game detail](#Game-detail)
+4. [Game algorithm](#Game-algorithm) 
+5. [Image and Sound source](#Image-and-Sound-source)
 
-### Nội dung
-1. ### Cách tải và cài đặt game
-    cài đặt các thư viện của SDL2
+### Contents
+1. ### How to Download and Install
+    Follow the instruction on these links to install 
         - [SDL 2.0](https://www.libsdl.org/download-2.0.php)  
         - [SDL_image](https://www.libsdl.org/projects/SDL_image/)  
         - [SDL_mixer](https://www.libsdl.org/projects/SDL_mixer/)  
         - [SDL_ttf](https://www.libsdl.org/projects/SDL_ttf/)  
 
-    Clonde project về và bật vào file có chứa main.exe chạy lệnh main trên cmd.
+    Clonde project and run "main" command in the file containing main.exe by using cmd
 
-2. ### Cách chơi game   
+2. ### How to play the game
  
-    Bạn điều khiển nhân vật màu vàng hình tròn tên `Pacman` ![](Pacman/Source/Assets/Entity%20Image/pacman%20icon.png). Nhiệm vụ của mình là ăn hết các  `dot` ![](Pacman/Source/Assets/Entity%20Image/dot.png)
-    Dùng phím W A S D hoặc các phím mũi tên để điều khiển `Pacman`.
+    Control a character named `Pacman` ![](Pacman/Source/Assets/Entity%20Image/pacman%20icon.png). Your mission is eating all the `dot` ![](Pacman/Source/Assets/Entity%20Image/dot.png)
+    Using W A S D or navigation arrows to control `Pacman`.
     
-    Ngăn cản bạn hoàn thành bàn chơi và giành được điểm cao là 6 con ma: `Blinky`, `Pinky`, `Clyde`, `Inky`, `Greendy`, `Friendy`. 
+    Prevent you from eating is 6 Ghosts: `Blinky`, `Pinky`, `Clyde`, `Inky`, `Greendy`, `Friendy`. 
 
-    Ăn chấm sức mạnh ![](Pacman/Source/Assets/Entity%20Image/power%20dot.png) (thường được gọi là `power dot`) bạn sẽ có một khoảng thời gian để ăn được các con ma. Ăn một con ma đang hoảng sợ cho bạn rất nhiều điểm và khiến con ma chạy về chỗ lồng chứa.
-3. ### Chi tiết về game
+    Eat Powerdot ![](Pacman/Source/Assets/Entity%20Image/power%20dot.png) You will have all small time to hunt the Ghosts. Eating the scared Ghosts gives you lots of score, also make them return to th cage.
+3. ### Game detail
 
-    Game là một mê cung gồm có 28x31 ô.     
-    Có tất cả 244 chấm trong 1 bàn, 240 chấm bình thường và 4 chấm sức mạnh.   
+    The game is the maze with 28x31 tiles. There are total 244 dots. 240 normai dots ans 4 powerdots.
 
-    Về mỗi con ghost thì bọn chúng có một cách hoạt động riêng. Nhìn chung thì chúng có 3 trạng thái:
+    About the Ghosts, each ong of them has their own AI. That means each ghost behaves differently.
 
-    #### `Đuổi`
-    - [`Blinky`]() ![](Pacman/Source/Assets/Entity%20Image/blinky%20icon.png): đuổi theo `Pacman`.   
-    - [`Pinky`]() ![](Pacman/Source/Assets/Entity%20Image/pinky%20icon.png): đi đến vị trí trước mặt `Pacman` 4 ô.
-    - [`Inky`]() ![](Pacman/Source/Assets/Entity%20Image/inky%20icon.png): đi đến vị trí được tạo bằng cách đối xứng vị trí của `Blinky` ![Blinky](Pacman/Source/Assets/Entity%20Image/blinky%20icon.png) qua tâm là `Pacman`.
-    - [`Clyde`]() ![](Pacman/Source/Assets/Entity%20Image/clyde%20icon.png): đuổi theo Pacman nếu khoảng cách giữa nó và Pacman lớn hơn 8 ô, nếu không thì nó sẽ về góc của mình.  
-     - `Greendy` ![](Pacman/Source/Assets/Entity%20Image/greendy%20icon.png): Như cái tên của nó thì Greendy có màu xanh, sở thích của nó là ăn táo xanh . Táo xanh sẽ xuất hiện ở góc trên trái đầu bàn chơi và sau đó thì là random 1 trong các góc. Greendy sẽ rời khỏi lồng khi trên mê cùng còn dưới 100 chấm. Sau khi rời lồng, nó ngay lập tức tìm đến táo xanh. Ăn được táo xanh sẽ giúp `Greendy` di chuyển nhanh gấp 2 lần trong 2s, đuổi theo `Pacman`. Sau khi hết thời gian thì nó lại đi tìm táo xanh. 
-    - `Friendy` ![](Pacman/Source/Assets/Entity%20Image/friendy%20icon.png): Đây là một con ma đặc biệt. Nó có màu vàng, như `Pacman` vậy, nhưng tối hơn. Nó là một người quan tâm tới bạn bè (bạn ở đây là mấy con ma ấy). Rời khỏi lồng từ đầu game, nhưng chỉ đi một cách ngẫu nhiên trong mê cung. Nhưng nếu bạn ăn chấm sức mạnh `power dot`, đe dọa bạn của nó, nó sẽ không bị hoảng sợ, thay vào đó chuyển sang đuổi `Pacman` trong 3s. 
+    #### `Chase`
+    - [`Blinky`]() ![](Pacman/Source/Assets/Entity%20Image/blinky%20icon.png): chasing `Pacman`.   
+    - [`Pinky`]() ![](Pacman/Source/Assets/Entity%20Image/pinky%20icon.png): go to the 4 tiles in fornt of `Pacman` direction.
+    - [`Inky`]() ![](Pacman/Source/Assets/Entity%20Image/inky%20icon.png): go to the location created by `Blinky` ![Blinky](Pacman/Source/Assets/Entity%20Image/blinky%20icon.png) symmetry across the `Pacman`.
+    - [`Clyde`]() ![](Pacman/Source/Assets/Entity%20Image/clyde%20icon.png): chase `Pacman` if the distance between him and `Pacman` is grater then 8 tiles.
+     - `Greendy` ![](Pacman/Source/Assets/Entity%20Image/greendy%20icon.png)Like his name, his skills is green and he like apple. In the game,  a green apple is spawn randomly at 1 of 4 corner. if greendy is out of cage, he will go finding the apple. After eating, he wil gain x2 speed in 2s, start hunting Pacman. You should becareful with him.  `Greendy` can be scared and eaten.
+    - `Friendy` ![](Pacman/Source/Assets/Entity%20Image/friendy%20icon.png): This one is spacial. Her skin is yellow, like `Pacman`. She is someone who cares about friends(of course, freind here is ghosts). Shw will randomly on maze.But if you eat `power dot`, she wil not be effect. Instead, she will hunting `Pacman` in 3s. 
 
-    #### `Thăm dò`
-    Trong trạng thái thăm dò, các con ma sẽ đi xung quanh 1 góc của bản đồ. Trong thời gian này `Pacman` sẽ dễ thở hơn.
+    #### `Scatter`
+    In scatter mode, the first 4 Ghosts, each one has its own corner. They will go around the corner for a few seconds.
 
-    #### `Hoảng sợ`    
-    Các con ma sẽ chuyển sang màu xanh như này  ![](Pacman/Source/Assets/Entity%20Image/frighten%20ghost%20icon.png) và `Pacman` có thể ăn chúng trong 1 khoảng thời gian nhất định.
+    #### `Frighten`    
+    In frighten mode, except `Friendly`, the ghosts turn blue ![](Pacman/Source/Assets/Entity%20Image/frighten%20ghost%20icon.png) and `Pacman` will be able to eat them for a few seconds.
 
-    Sau khi ăn thì con ma đó sẽ chuyển thành `đôi mắt` ![](Pacman/Source/Assets/Entity%20Image/ghost%20eye.png), tìm đường ngắn nhất và đi về phía trước của lồng và hồi sinh.
+    if you eat a ghost in this mode, it will trun into `ghost'eyes` ![](Pacman/Source/Assets/Entity%20Image/ghost%20eye.png), find the way and get back to the in front of the cage then respawn.
 
-    2 trạng thái đầu sẽ luân phiên nhau, trạng thái hoảng sợ sẽ chỉ kích hoạt khi Pacman ăn chấm sức mạnh.  
-    Thêm thông tin về phần này: https://pacman.fandom.com/wiki/Maze_Ghost_AI_Behaviors  
+    The three modes above chage alternately. More information: https://pacman.fandom.com/wiki/Maze_Ghost_AI_Behaviors  
 
-4. ### Thuật toán của game
+4. ### Game algorithm
     -------------------------------
-    Đầu tiên là về thuật toán giúp các con ma đuổi theo `Pacman`.
+    Firstly, let's talk about the algorithm for the ghosts to chase `Pacman`.
 
-    Các con ma sẽ có mấy cái như sau:   
-    *Gốc tọa độ trong game được lấy ở góc trái trên, Ox hướng sang phải, Oy hướng xuống dưới*
-    - `tileX`: Vị trí ô hiện tại theo trục Ox
-    - `tileY`: Vị trí ô hiện tại theo trục Oy
-    - `scrPosX`: Vị trí trên màn hình hiện tại theo trục Ox
-    - `scrPosY`: Vị trí trên màn hình hiện tại theo trục Oy
-    - `nextTile (X, Y)`: tọa độ đích đến     
+   The ghosts have several properties as follows: 
+
+    The ghosts have several properties as follows: 
+    - `tileX`: current tile position on Ox axis. 
+    - `tileY`: current tile position on Oy axis.
+    - `scrPosX`: current screen position on Ox axis. 
+    - `scrPosY`: current screen position on Oy axis. 
+    - `nextTile (X, Y)`: coordinates of the destination tile.  
     
-    Trong game gốc thì nhà phát triển quản lý bằng các ô, mình quản lý vị trí bằng vị trí trên màn hình.
+    In the original game, developers manage positions using tiles. However, I manage them using screen positions. When a ghost steps into a new tile, i have to find the best path to reach the destination. There are three directions to choose from (if the direction is a wall, i won't count it): `forward`, `turn 90 degrees clockwise`, and `turn 90 degrees counterclockwise`. I use BFS to calculate how many steps it takes to get from one tile to another, with the condition that at each step, the ghost cannot turn back against its previous direction. I calculate BFS before you click 'new game', so it won't lag.
 
-    Khi mà con ma bước sang 1 ô mới thì mình sẽ phải tìm đường đi tốt nhất để đến đích. Có 3 hướng được phép ở đây (nếu như hướng đó là tường thì không tính): `phía trước mặt`, `quay 90 độ theo chiều kim đồng hồ`, `quay ngược chiều kim đồng hồ 90 độ`. Mình dùng BFS để tính trước xem từ một ô bất kì đến một ô nào đó của mê cung mất bao bước đi, với điều kiện là tại mỗi bước đi con ma không được quay đầu ngược lại so với hướng cũ của nó. BFS mình tính từ trước khi bạn ấn newgame nên nó sẽ ko bị chậm.
 
-    Khi ma bước sang ô mới, từ 3 hướng mình nói ở trên, mình lấy hướng có bước đi nhỏ nhất. Nếu như đích đến là tường, thì mình dùng `khoảng cách Euclid` thay cho cái hướng đó. Trong quá trình chơi, nếu bạn thấy con ma không đi theo hướng tối ưu, thì đừng hiểu nhầm, chúng nó chỉ đang đi theo đường đến mục tiêu của nó. Mỗi con ma có một mục tiêu riêng mà. 
+    When a ghost steps into a new tile, we choose the direction with the smallest number of steps among the three directions mentioned above. If the destination tile is a wall, then we use `the Euclidean distance` instead of the direction. During gameplay, if you see a ghost not moving according to the optimal direction, don't misunderstand. It's just moving towards its own target.
+
+
 
 
     ----------------------
-    Tiếp theo hãy nói về chuyển động của Pacman.
+    Next, let's talk about Pacman's movement.
 
-    Nếu điều khiển Pacman bằng các phím thì sẽ rất khó để đi qua các ngõ rẽ vì phải tính từng Pixel, vì vậy mình đã để thuật toán, nếu trước khi đến ngã rẽ nếu Player rẽ hướng nào thì khi đến ngã rẽ chỉ việc rẽ theo hướng đó thôi 
+   If we use the arrow keys to control Pacman, it will be very difficult to pass through intersections because we have to calculate each pixel. Therefore, we have implemented an algorithm where, before reaching an intersection, if the player turns in a specific direction, then at the intersection, Pacman will turn in that direction.
 
-5. ### Nguồn ảnh và âm thanh
+5. ### Image and Sound source
     - green-apple: http://pixelartmaker.com/art/5adcfa718020edf
     - youlose: https://www.vectorstock.com/royalty-free-vector/you-lose-rubber-stamp-vector-17695736  
     - pacman-dead: https://www.deviantart.com/friendbeard/art/Dead-Heroes-Pacman-511878694  
-    - Âm thanh:[apple music](https://music.apple.com/us/album/pac-man-game-sound-effect/328036461). 
+    - Sound:[apple music](https://music.apple.com/us/album/pac-man-game-sound-effect/328036461). 
 
 
 
