@@ -51,14 +51,6 @@
     2 trạng thái đầu sẽ luân phiên nhau, trạng thái hoảng sợ sẽ chỉ kích hoạt khi Pacman ăn chấm sức mạnh.  
     Thêm thông tin về phần này: https://pacman.fandom.com/wiki/Maze_Ghost_AI_Behaviors  
 
-
-<<<<<<< HEAD
-    
-=======
-    - `Greendy` ![](Pacman/Source/Assets/Entity%20Image/greendy%20icon.png): Như cái tên của nó thì Greendy có màu xanh, sở thích của nó là ăn táo xanh ![](Pacman/Source/Assets/Entity%20Image/greenapple.png). Greendy và táo xanh sẽ xuất hiện từ level 3 trở đi. Táo xanh sẽ xuất hiện ở góc trên trái đầu bàn chơi và sau đó thì là random 1 trong các góc. Greendy sẽ rời khỏi lồng khi trên mê cùng còn dưới 100 chấm. Sau khi rời lồng, nó ngay lập tức tìm đến táo xanh. Ăn được táo xanh sẽ giúp `Greendy` di chuyển nhanh gấp 2 lần trong 2s, đuổi theo `Pacman`. Sau khi hết thời gian thì nó lại đi tìm táo xanh. 
-
-    - `Friendy` ![](Pacman/Source/Assets/Entity%20Image/friendy%20icon.png): Đây là một con ma đặc biệt. Nó có màu vàng, như `Pacman` vậy, nhưng tối hơn. Nó là một người quan tâm tới bạn bè (bạn ở đây là mấy con ma ấy). Xuất hiện từ level 5. Rời khỏi lồng từ đầu game, nhưng chỉ đi một cách ngẫu nhiên trong mê cung. Nhưng nếu bạn ăn chấm sức mạnh `power dot`, đe dọa bạn của nó, nó sẽ không bị hoảng sợ, thay vào đó chuyển sang đuổi `Pacman` trong 3s. 
->>>>>>> refs/remotes/origin/main
 4. ### Thuật toán của game
     -------------------------------
     Đầu tiên là về thuật toán giúp các con ma đuổi theo `Pacman`.
