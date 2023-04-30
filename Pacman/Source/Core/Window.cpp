@@ -129,19 +129,25 @@ void Window::runGame() {
                 }
                 else {
                     playState->handleEvent(e, renderer, runningMenu, highScore);
-                    if (runningMenu) startMenu->reOpen();
+                    if (runningMenu){
+                        //if press exit to Menu -> "startGame" will be reset game
+                        startGame = false;
+                        startMenu->reOpen();
+                    }   
                 }
             }
         }
         if (!runningMenu) {
+            
             if (!startGame) {
                 playState->newGame(renderer);
                 startGame = true;
             }
             playState->runGame(runningMenu);
-            if (runningMenu) startMenu->reOpen(), startGame = false;
+            //if (runningMenu) startMenu->reOpen(), startGame = false;
         }
 
+        //render background
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 

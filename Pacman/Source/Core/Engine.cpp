@@ -220,12 +220,14 @@ void Engine::render(SDL_Renderer*& renderer, const std::vector<std::string>& sco
         int dir = -1;
         if (!pacman->emptyDirStack()) dir = pacman->getDir();
         if (!pacman->isDead()) {
+            //render Ghost
             renderGhost(renderer, blinky, TextureSrc::BLINKY);
             renderGhost(renderer, pinky, TextureSrc::PINKY);
             renderGhost(renderer, inky, TextureSrc::INKY);
             renderGhost(renderer, clyde, TextureSrc::CLYDE);
             if (greendy != nullptr) renderGhost(renderer, greendy, TextureSrc::GREENDY);
             if (friendy != nullptr) renderGhost(renderer, friendy, TextureSrc::FRIENDY);
+            //render "READY"
             if (Mix_Playing(2)) {
                 dsRect = { 441 - 82, 285 - 15 - 7, 164, 30 };
                 SDL_RenderCopy(renderer, ready, nullptr, &dsRect);

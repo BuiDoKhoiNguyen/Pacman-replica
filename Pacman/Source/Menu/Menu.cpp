@@ -64,8 +64,8 @@ void Menu::init(SDL_Renderer*& renderer, const std::string imgPath, std::vector<
             menuButton.push_back(new Button(MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT, baseScrPosX - MENU_BUTTON_WIDTH / 2, baseScrPosY + (5 + MENU_BUTTON_HEIGHT) * (i - 1)));
 
         for (int i = 0; i < TOTAL_BUTTON; ++i) {
-            if (buttonText[i] == "Sound: ON") {
-                if (Mix_Volume(-1, -1) == 0) buttonText[i] = "Sound: OFF";
+            if (buttonText[i] == "Sound: ON" && !Mix_Volume(-1, -1)) {
+                buttonText[i] = "Sound: OFF";
             }
             if(buttonText.size() == 5) isMenu=true; 
             menuButton[i]->loadButton(renderer, buttonText[i],isMenu);
@@ -163,12 +163,13 @@ void Menu::handleEvent(SDL_Event& e, SDL_Renderer*& renderer) {
                 else if (menuText == "Exit") currentMenuStatus = EXIT_BUTTON_PRESSED;
                 else if (menuText == "Exit to Start Menu") currentMenuStatus = EXIT_BUTTON_PRESSED;
                 else if (menuText == "Sound: ON") {
+                    //if(Mix_Volume(-1,-1)) menuText = "Sound: OFF";
                     menuButton[currentButtonID]->changeSoundButton(renderer);
                     Mix_Volume(-1, 0);
                 }
                 else if (menuText == "Sound: OFF") {
-                    menuButton[currentButtonID]->changeSoundButton(renderer),
-                        Mix_Volume(-1, MIX_MAX_VOLUME);
+                    menuButton[currentButtonID]->changeSoundButton(renderer);
+                    Mix_Volume(-1, MIX_MAX_VOLUME);
                 }
                 else if (menuText == "How to Play") {
                     currentMenuStatus = HOW_TO_PLAY;

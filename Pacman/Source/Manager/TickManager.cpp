@@ -49,40 +49,42 @@ void TickManager::greendyStartChasePacman() {
 
 void TickManager::resetTick(const int level) {
     while (!mode.empty()) mode.pop();
-    if (level == 1) {
-        mode.push(CID(CHASING_MODE, oo));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        mode.push(CID(CHASING_MODE, CHASING_TIME));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        mode.push(CID(CHASING_MODE, CHASING_TIME));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        mode.push(CID(CHASING_MODE, CHASING_TIME));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        FRIGHTEN_TIME = 5.0;
-    }
-    else if (level < 5) {
-        mode.push(CID(CHASING_MODE, oo));
-        mode.push(CID(SCATTERING_MODE, 1.0));
-        mode.push(CID(CHASING_MODE, 1033.0));
-        mode.push(CID(SCATTERING_MODE, 5.0));
-        mode.push(CID(CHASING_MODE, CHASING_TIME));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        mode.push(CID(CHASING_MODE, CHASING_TIME));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        FRIGHTEN_TIME = 3.0;
-    }
-    else {
-        mode.push(CID(CHASING_MODE, oo));
-        mode.push(CID(SCATTERING_MODE, 1.0));
-        mode.push(CID(CHASING_MODE, 1037.0));
-        mode.push(CID(SCATTERING_MODE, 5.0));
-        mode.push(CID(CHASING_MODE, CHASING_TIME));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        mode.push(CID(CHASING_MODE, CHASING_TIME));
-        mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-        FRIGHTEN_TIME = 1.0;
-    }
-    lastTick = SDL_GetTicks();
+
+    mode.push(CID(CHASING_MODE, oo));
+    mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    mode.push(CID(CHASING_MODE, CHASING_TIME));
+    mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    mode.push(CID(CHASING_MODE, CHASING_TIME));
+    mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    mode.push(CID(CHASING_MODE, CHASING_TIME));
+    mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    FRIGHTEN_TIME = 5.0;
+
+     lastTick = SDL_GetTicks();
+    // else
+    //  if (level < 5) {
+    //     mode.push(CID(CHASING_MODE, oo));
+    //     mode.push(CID(SCATTERING_MODE, 1.0));
+    //     mode.push(CID(CHASING_MODE, 1033.0));
+    //     mode.push(CID(SCATTERING_MODE, 5.0));
+    //     mode.push(CID(CHASING_MODE, CHASING_TIME));
+    //     mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    //     mode.push(CID(CHASING_MODE, CHASING_TIME));
+    //     mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    //     FRIGHTEN_TIME = 3.0;
+    // }
+    // else {
+    //     mode.push(CID(CHASING_MODE, oo));
+    //     mode.push(CID(SCATTERING_MODE, 1.0));
+    //     mode.push(CID(CHASING_MODE, 1037.0));
+    //     mode.push(CID(SCATTERING_MODE, 5.0));
+    //     mode.push(CID(CHASING_MODE, CHASING_TIME));
+    //     mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    //     mode.push(CID(CHASING_MODE, CHASING_TIME));
+    //     mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
+    //     FRIGHTEN_TIME = 1.0;
+    // }
+   
 }
 
 void TickManager::updateStatus() {

@@ -60,7 +60,7 @@ void PlayStateManager::handleEvent(SDL_Event& e, SDL_Renderer*& renderer, bool& 
                 engine->newGame();
                 break;
             case Menu::EXIT_BUTTON_PRESSED:
-                exitToMainMenu = true;
+                exitToMainMenu = true;                      
                 runPauseMenu = false; break;
             }
         }

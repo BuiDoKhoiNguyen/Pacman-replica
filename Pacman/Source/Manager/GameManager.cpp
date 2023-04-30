@@ -115,6 +115,7 @@ void GameManager::nextLevel() {
     eatenGhost = -1;
     currentBut = 1;
     playerDecision = WAITING;
+    //number of coin to start the ghost
     if (level <= 3) {
         PINKY_COIN_LIMIT = 5;
         INKY_COIN_LIMIT = 30;
