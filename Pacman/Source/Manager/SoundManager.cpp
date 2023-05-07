@@ -88,6 +88,7 @@ void SoundManager::playSound() {
         dead = false;
     }
     if (Mix_Playing(2)) return;
+    //if playing this sound, stop that sound
     if (newMoveType != oldMoveType) {
         Mix_PlayChannel(1, soundEffect[newMoveType], -1);
         oldMoveType = newMoveType;

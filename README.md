@@ -33,7 +33,7 @@
 
     #### `Chase`
     - [`Blinky`]() ![](Pacman/Source/Assets/Entity%20Image/blinky%20icon.png): chasing `Pacman`.   
-    - [`Pinky`]() ![](Pacman/Source/Assets/Entity%20Image/pinky%20icon.png): go to the 4 tiles in fornt of `Pacman` direction.
+    - [`Pinky`]() ![](Pacman/Source/Assets/Entity%20Image/pinky%20icon.png): go to the 4 tiles in front of `Pacman` direction.
     - [`Inky`]() ![](Pacman/Source/Assets/Entity%20Image/inky%20icon.png): go to the location created by `Blinky` ![Blinky](Pacman/Source/Assets/Entity%20Image/blinky%20icon.png) symmetry across the `Pacman`.
     - [`Clyde`]() ![](Pacman/Source/Assets/Entity%20Image/clyde%20icon.png): chase `Pacman` if the distance between him and `Pacman` is grater then 8 tiles.
      - `Greendy` ![](Pacman/Source/Assets/Entity%20Image/greendy%20icon.png)Like his name, his skills is green and he like apple. In the game,  a green apple is spawn randomly at 1 of 4 corner. if greendy is out of cage, he will go finding the apple. After eating, he wil gain x2 speed in 2s, start hunting Pacman. You should becareful with him.  `Greendy` can be scared and eaten.

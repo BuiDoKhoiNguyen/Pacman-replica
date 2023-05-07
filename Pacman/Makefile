@@ -2,21 +2,11 @@
 INCLUDES = -ISource/Manager -ISource/Core -ISource/Map -ISource/Menu -ISource/Object -I src/include/SDL2 -L src/lib
 
 CPPS = main.cpp \
-          Source\Core\Engine.cpp \
-		  Source\Core\PlayStateManager.cpp \
-		  Source\Core\Window.cpp \
-		  Source\Manager\GameManager.cpp \
-		  Source\Manager\SoundManager.cpp \
-		  Source\Manager\TextManager.cpp \
-		  Source\Manager\TickManager.cpp \
-		  Source\Map\Map.cpp \
-		  Source\Menu\Button.cpp \
-		  Source\Menu\Menu.cpp \
-		  Source\Object\Ghost.cpp \
-		  Source\Object\Item.cpp \
-		  Source\Object\Object.cpp \
-		  Source\Object\Pacman.cpp \
-		  Source\Object\TextureSrc.cpp \
+		$(wildcard Source/Core/*.cpp)\
+		$(wildcard Source/Manager/*.cpp)\
+		$(wildcard Source/Map/*.cpp)\
+		$(wildcard Source/Menu/*.cpp)\
+		$(wildcard Source/Object/*.cpp)
 
 all:
 	g++ $(CPPS)  $(INCLUDES)\

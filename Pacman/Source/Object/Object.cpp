@@ -56,7 +56,12 @@ void Object::setDead(bool status, int id) {
 void Object::move() {
     scrPosX += velX;
     scrPosY += velY;
-
+    /*checks if the horizontal position of the object is divisible by 16 
+    (the size of each tile on the maze), meaning it is on a tile.
+    If yes, tileX (horizontal tile position of the object on the maze)
+    is calculated by dividing scrPosX by 16
+    Otherwise, tileX is calculated by taking scrPosX plus 8 (half the tile size)
+    and then dividing by 16, to locate the cell closer to the object.*/
     if (scrPosX % 16 == 0) tileX = scrPosX / 16;
     else tileX = (scrPosX + 8) / 16;
 

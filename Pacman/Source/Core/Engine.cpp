@@ -155,19 +155,20 @@ void Engine::handleEvent(SDL_Event& e, std::vector<std::string>& scoreData) {
             int pacmanPosX = pacman->getPosX();
             int pacmanPosY = pacman->getPosY();
 
-            if (!pacman->emptyDirStack()) lastDir = pacman->getDir();
+            if (!pacman->emptyDirStack()) lastDir = pacman->getDir();//return direction.top()
 
             if (e.key.keysym.sym == SDLK_UP || e.key.keysym.sym == SDLK_w) newDir = 0;
             else if (e.key.keysym.sym == SDLK_RIGHT || e.key.keysym.sym == SDLK_d) newDir = 1;
             else if (e.key.keysym.sym == SDLK_DOWN || e.key.keysym.sym == SDLK_s) newDir = 2;
             else if (e.key.keysym.sym == SDLK_LEFT || e.key.keysym.sym == SDLK_a) newDir = 3;
-
+            
             if (lastDir == -1) {
                 if (map->canChangeDir(pacmanTileX, pacmanTileY, newDir)) {
                     pacman->eraseSpecial();
                     pacman->pushtoStack(newDir);
                 }
             }
+            //operater "%" to check if newDir is opposite to the lastDir or not  
             else {
                 if (newDir % 2 == lastDir % 2) {
                     if (map->canChangeDir(pacmanTileX, pacmanTileY, newDir)) {
@@ -205,7 +206,7 @@ void Engine::handleEvent(SDL_Event& e, std::vector<std::string>& scoreData) {
 }
 
 void Engine::render(SDL_Renderer*& renderer, const std::vector<std::string>& scoreData) {
-    tickManager->stablizeFPS();
+    //tickManager->stablizeFPS();
     SDL_Rect dsRect;
     for (int i = 0; i < 28; ++i) {
         for (int j = 0; j < 31; ++j) {
@@ -282,7 +283,7 @@ void Engine::loop(bool& exitToMenu) {
                 break;
             case GameManager::QUIT:
                 exitToMenu = true; break;
-            }
+            } 
         }
         return;
     }
@@ -371,12 +372,16 @@ void Engine::loop(bool& exitToMenu) {
 
     if (!pacman->isDead()) {
         tickManager->pauseTick(false);
+
+        //blinky chasing Pacman
         if (blinky->isDead())
             blinky->setDestination(13, 11);
         else if (!blinky->isScattering())
             blinky->setDestination(pacmanTileX, pacmanTileY);
         else blinky->setDestination(Ghost::DEFAULT_BLINKY_TILE_X, Ghost::DEFAULT_BLINKY_TILE_Y);
 
+
+        //pinky go to the 4 tiles in front of Pacman
         if (pinky->isDead())
             pinky->setDestination(13, 11);
         else if (!pinky->isScattering()) {
@@ -396,13 +401,15 @@ void Engine::loop(bool& exitToMenu) {
             }
         }
         else pinky->setDestination(Ghost::DEFAULT_PINKY_TILE_X, Ghost::DEFAULT_PINKY_TILE_Y);
-
+    
+        //inky go to the location created by 'Blinky'
         if (inky->isDead())
             inky->setDestination(13, 11);
         else if (!inky->isScattering())
             inky->setDestination(2 * pacmanTileX - blinky->getTileX(), 2 * pacmanTileY - blinky->getTileY());
         else inky->setDestination(Ghost::DEFAULT_INKY_TILE_X, Ghost::DEFAULT_INKY_TILE_Y);
 
+        //cycle chasing Pacman if the distance between him and Pacman is greater than 8 tiles
         if (clyde->isDead())
             clyde->setDestination(13, 11);
         else if (!clyde->isScattering()) {
@@ -413,14 +420,17 @@ void Engine::loop(bool& exitToMenu) {
         }
         else clyde->setDestination(Ghost::DEFAULT_CLYDE_TILE_X, Ghost::DEFAULT_CLYDE_TILE_Y);
 
+        //greendy mode chasing Pacman when he eats green apple
         if (greendy != nullptr) {
             if (greendy->isDead())
                 greendy->setDestination(13, 11);
-            else if (eatGreenApple == false)
+            else if (eatGreenApple == false && !greendy->isScattering())
                 greendy->setDestination(apple->getPosX(), apple->getPosY());
-            else if (!greendy->isFrighten())
+            else if (!greendy->isFrighten() )
                 greendy->setDestination(pacmanTileX, pacmanTileY, 2);
         }
+
+        //friendly chasing Pacman when his friend turn into frighten mode
         if (friendy != nullptr && tickManager->isFriendyChaseTime()) {
             friendy->setDestination(pacmanTileX, pacmanTileY, 1);
         }
@@ -450,7 +460,7 @@ void Engine::ghostMove(Ghost*& ghost) {
     int ghostOldDir = ghost->getGhostDir();
     int ghostNextTileX = ghost->getNextTileX();
     int ghostNextTileY = ghost->getNextTileY();
-
+    
     if (ghostTileX * 16 == ghostPosX && ghostTileY * 16 == ghostPosY) {
         if (map->iscrossRoad(ghostTileX, ghostTileY)) {
             if (ghost->isFrighten() || (ghost == friendy && !tickManager->isFriendyChaseTime())) {
@@ -533,7 +543,7 @@ void Engine::ghostMove(Ghost*& ghost) {
                 tickManager->greendyStartChasePacman();
                 ghost->resetObjectTile(ghostTileX, ghostTileY);
                 apple->destroyItem();
-                eatGreenApple = true;
+                    eatGreenApple = true;
             }
         }
     }
@@ -542,6 +552,7 @@ void Engine::ghostMove(Ghost*& ghost) {
 
 void Engine::pacmanMeatGhost(Ghost*& ghost) {
     if (ghost->isDead()) return;
+    //pitago
     int distance = (pacman->getPosX() - ghost->getPosX()) * (pacman->getPosX() - ghost->getPosX()) + (pacman->getPosY() - ghost->getPosY()) * (pacman->getPosY() - ghost->getPosY());
     if (distance <= 9) {
         //if ((pacman->getPosX() == ghost->getPosX() && abs(pacman->getPosY() - ghost->getPosY()) <= 3) ||

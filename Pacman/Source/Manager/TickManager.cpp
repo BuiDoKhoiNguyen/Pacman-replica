@@ -60,7 +60,7 @@ void TickManager::resetTick(const int level) {
     mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
     FRIGHTEN_TIME = 5.0;
 
-     lastTick = SDL_GetTicks();
+    lastTick = SDL_GetTicks();
     // else
     //  if (level < 5) {
     //     mode.push(CID(CHASING_MODE, oo));

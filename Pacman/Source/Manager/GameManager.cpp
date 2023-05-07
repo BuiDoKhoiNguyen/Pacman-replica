@@ -14,7 +14,7 @@ GameManager::GameManager(SDL_Renderer*& renderer) {
     PINKY_COIN_LIMIT = 5;
     INKY_COIN_LIMIT = 30;
     CLYDE_COIN_LIMIT = 90;
-    remainLife = new Item(renderer,"Source/Assets//Entity Image/pacman icon.png");
+    remainLife = new Item(renderer,"Source/Assets/Entity Image/pacman icon.png");
     liveText = new TextManager(28);
     //liveText->loadRenderText(renderer, "Lives:", { 255, 255, 255, 255 });
     scoreText = new TextManager(28);
@@ -151,10 +151,10 @@ void GameManager::renderHUD(SDL_Renderer*& renderer) {
     
     // liveText->loadRenderText(renderer,"Life: ", {255, 255, 255 ,255});
     // liveText->renderText(renderer, 0, 50, TextManager::LEFT);
-    // // for( int i=0;i<life;i++ )
-    // // {
-    // //     remainLife->renderLife(renderer,life);
-    // // } 
+    // for( int i=0;i<life;i++ )
+    // {
+    //     remainLife->renderLife(renderer,life);
+    // } 
     liveText->loadRenderText(renderer, "Life: " + std::to_string(life), { 255, 255, 255, 255 });
     liveText->renderText(renderer, 0, 50, TextManager::LEFT);
     scoreText->loadRenderText(renderer, "Scores: " + std::to_string(scores), { 255, 255, 255, 255 });
