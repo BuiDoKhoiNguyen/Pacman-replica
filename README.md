@@ -64,7 +64,7 @@
     
     In the original game, developers manage positions using tiles. However, I manage them using screen positions. When a ghost steps into a new tile, i have to find the best path to reach the destination. There are three directions to choose from (if the direction is a wall, i won't count it): `forward`, `turn 90 degrees clockwise`, and `turn 90 degrees counterclockwise`. I use BFS to calculate how many steps it takes to get from one tile to another, with the condition that at each step, the ghost cannot turn back against its previous direction. I calculate BFS before you click 'new game', so it won't lag.
     
-    Describe BFS:
+    Describe BFS in map.cpp:
     - Lines 1 and 2 declare 2 arrays of integers dx and dy to represent 4 directions of movement.
     - Line 4 sets the default value of -1 for the dist array. This array is used to store the distance between two points on the matrix.
     - Line 6 declares a queue to be of type std::tuple<int, int, int>. The 3 integers in the tuple are the x coordinate, y coordinate and the direction of movement, respectively.
