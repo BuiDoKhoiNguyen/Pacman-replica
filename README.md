@@ -63,11 +63,15 @@
     - `nextTile (X, Y)`: coordinates of the destination tile.  
     
     In the original game, developers manage positions using tiles. However, I manage them using screen positions. When a ghost steps into a new tile, i have to find the best path to reach the destination. There are three directions to choose from (if the direction is a wall, i won't count it): `forward`, `turn 90 degrees clockwise`, and `turn 90 degrees counterclockwise`. I use BFS to calculate how many steps it takes to get from one tile to another, with the condition that at each step, the ghost cannot turn back against its previous direction. I calculate BFS before you click 'new game', so it won't lag.
-
-
-    When a ghost steps into a new tile, we choose the direction with the smallest number of steps among the three directions mentioned above. If the destination tile is a wall, then we use `the Euclidean distance` instead of the direction. During gameplay, if you see a ghost not moving according to the optimal direction, don't misunderstand. It's just moving towards its own target.
-
-
+    
+    Describe BFS:
+    - Lines 1 and 2 declare 2 arrays of integers dx and dy to represent 4 directions of movement.
+    - Line 4 sets the default value of -1 for the dist array. This array is used to store the distance between two points on the matrix.
+    - Line 6 declares a queue to be of type std::tuple<int, int, int>. The 3 integers in the tuple are the x coordinate, y coordinate and the direction of movement, respectively.
+    - Line 7 marks as unvisited each cell on the matrix using the array visited.
+    - Lines 8-27 will traverse all cells on the matrix, if it is a wall cell, ignore it. If it's not a wall, then browse all 4 movement directions (right, top, left, bottom), if that direction is feasible (not blocked by a wall, visited or rotated) then add to the queue.
+    - Lines 28-41 will iterate until the queue is empty, each iteration will retrieve all elements in the queue to calculate the distance to each point, then add to the queue unvisited points in 4 directions move to. The distance at each iteration time is stored in the variable curDist.
+    - Finally, when the loop ends, a table of the distances between the points on the matrix in 4 moving directions will be obtained.
 
 
     ----------------------
