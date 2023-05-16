@@ -244,7 +244,7 @@ void Map::calculateDistance() {
             }
         }
     }
-    std::cout << "Done!";
+    std::cout << "Map done!\n";
 }
 
 int Map::eatCoins(const int& pacmanTileX, const int& pacmanTileY) {

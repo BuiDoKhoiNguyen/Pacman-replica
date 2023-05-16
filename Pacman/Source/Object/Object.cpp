@@ -39,7 +39,7 @@ void Object::reTilePos() {
     scrPosX = tileX * 16;
     scrPosY = tileY * 16;
 }
-
+//change direction
 void Object::changeVelocityDir(int velX, int velY, int dir) {
     this->velX = velX;
     this->velY = velY;

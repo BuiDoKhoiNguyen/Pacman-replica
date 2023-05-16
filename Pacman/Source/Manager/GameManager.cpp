@@ -25,8 +25,8 @@ GameManager::GameManager(SDL_Renderer*& renderer) {
     playerName->loadRenderText(renderer, playername.c_str(), { 255, 255, 255, 255 });
     egBoard = loadImage(renderer, "Source/Assets/Menu Image/endgame.png");
     hsBoard = loadImage(renderer, "Source/Assets/Menu Image/newHighscore.png");
-    yesBut = new Button(70, 30, 478, 250); yesBut->loadButton(renderer, "Yes"); yesBut->setStatus(Button::BUTTON_IN);
-    noBut = new Button(70, 30, 580, 250); noBut->loadButton(renderer, "No");  noBut->setStatus(Button::BUTTON_OUT);
+    yesBut = new Button(70, 30, 478, 250); yesBut->loadButton(renderer, "Yes",false); yesBut->setStatus(Button::BUTTON_IN);
+    noBut = new Button(70, 30, 580, 250); noBut->loadButton(renderer, "No",false);  noBut->setStatus(Button::BUTTON_OUT);
 }
 
 GameManager::~GameManager() {
@@ -142,7 +142,7 @@ void GameManager::handleGhostPos(Ghost*& pinky, Ghost*& inky, Ghost*& clyde, Gho
     if (pinky->isInCage() && eatenCoins >= PINKY_COIN_LIMIT) pinky->respawn(Ghost::GHOST_START_TILE_X, Ghost::GHOST_START_TILE_Y, false);
     if (inky->isInCage() && eatenCoins >= INKY_COIN_LIMIT) inky->respawn(Ghost::GHOST_START_TILE_X, Ghost::GHOST_START_TILE_Y, false);
     if (clyde->isInCage() && eatenCoins >= CLYDE_COIN_LIMIT) clyde->respawn(Ghost::GHOST_START_TILE_X, Ghost::GHOST_START_TILE_Y, false);
-    if (getRemainCoin() < 100 && greendy != nullptr && greendy->isInCage()) greendy->respawn(Ghost::GHOST_START_TILE_X, Ghost::GHOST_START_TILE_Y, false);
+    if (getRemainCoin() < 150 && greendy != nullptr && greendy->isInCage()) greendy->respawn(Ghost::GHOST_START_TILE_X, Ghost::GHOST_START_TILE_Y, false);
 }
 
 void GameManager::renderHUD(SDL_Renderer*& renderer) {

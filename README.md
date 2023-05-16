@@ -9,7 +9,7 @@
 
 ### Contents
 1. ### How to Download and Install
-    Follow the instruction on these links to install 
+    Follow the instruction on these links to install \
         - [SDL 2.0](https://www.libsdl.org/download-2.0.php)  
         - [SDL_image](https://www.libsdl.org/projects/SDL_image/)  
         - [SDL_mixer](https://www.libsdl.org/projects/SDL_mixer/)  
@@ -20,7 +20,7 @@
 2. ### How to play the game
  
     Control a character named `Pacman` ![](Pacman/Source/Assets/Entity%20Image/pacman%20icon.png). Your mission is eating all the `dot` ![](Pacman/Source/Assets/Entity%20Image/dot.png)
-    Using W A S D or navigation arrows to control `Pacman`.
+    Using `W` `A` `S` `D` or navigation arrows to control `Pacman`.
     
     Prevent you from eating is 6 Ghosts: `Blinky`, `Pinky`, `Clyde`, `Inky`, `Greendy`, `Friendy`. 
 
@@ -49,6 +49,8 @@
 
     The three modes above chage alternately. More information: https://pacman.fandom.com/wiki/Maze_Ghost_AI_Behaviors  
 
+    Here are some pictures of the game.\
+    ![](Pacman/Source/Assets/Intro/1.png) ![](Pacman/Source/Assets/Intro/2.png)![](Pacman/Source/Assets/Intro/3.png)![](Pacman/Source/Assets/Intro/4.png)![](Pacman/Source/Assets/Intro/5.png)![](Pacman/Source/Assets/Intro/6.png)
 4. ### Game algorithm
     -------------------------------
     Firstly, let's talk about the algorithm for the ghosts to chase `Pacman`.
@@ -74,6 +76,10 @@
    If we use the arrow keys to control Pacman, it will be very difficult to pass through intersections because we have to calculate each pixel. Therefore, we have implemented an algorithm where, before reaching an intersection, if the player turns in a specific direction, then at the intersection, Pacman will turn in that direction.
 
 5. ### Image and Sound source
+    - I learn how to make game through youtube channel https://www.youtube.com/@CarlBirch \
+    and get ideas from https://github.com/schuay/pacman 
+
+
     - green-apple: http://pixelartmaker.com/art/5adcfa718020edf
     - youlose: https://www.vectorstock.com/royalty-free-vector/you-lose-rubber-stamp-vector-17695736  
     - pacman-dead: https://www.deviantart.com/friendbeard/art/Dead-Heroes-Pacman-511878694  

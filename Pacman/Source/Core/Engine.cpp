@@ -351,16 +351,23 @@ void Engine::loop(bool& exitToMenu) {
     pinky->setScattering(scatter);
     inky->setScattering(scatter);
     clyde->setScattering(scatter);
+    //greendy->setScattering(scatter);
     if (!tickManager->isGreendyChaseTime()) {
         eatGreenApple = false;
     }
     else {
         if (apple->isDestroyed()) {
-            switch (rand() % 4) {
+            switch (rand() % 10) {
             case 0: apple->spawnAt(1, 1); break;
             case 1: apple->spawnAt(26, 1); break;
             case 2: apple->spawnAt(26, 29); break;
             case 3: apple->spawnAt(1, 29); break;
+            case 4: apple->spawnAt(1, 8); break;
+            case 5: apple->spawnAt(26, 8); break;
+            case 6: apple->spawnAt(1, 20); break;
+            case 7: apple->spawnAt(26, 20); break;
+            case 8: apple->spawnAt(6, 14); break;
+            case 9: apple->spawnAt(21, 14); break;
             }
         }
     }
@@ -432,7 +439,7 @@ void Engine::loop(bool& exitToMenu) {
 
         //friendly chasing Pacman when his friend turn into frighten mode
         if (friendy != nullptr && tickManager->isFriendyChaseTime()) {
-            friendy->setDestination(pacmanTileX, pacmanTileY, 1);
+            friendy->setDestination(pacmanTileX, pacmanTileY);
         }
     }
     pacman->goThroughTunnel();
@@ -482,7 +489,7 @@ void Engine::ghostMove(Ghost*& ghost) {
             }
             else {
                 int distanceUP, distanceDOWN, distanceLEFT, distanceRIGHT;
-                distanceUP = distanceDOWN = distanceLEFT = distanceRIGHT = __INT32_MAX__;
+                distanceUP = distanceDOWN = distanceLEFT = distanceRIGHT = INT_MAX;
 
                 if (map->canChangeDir(ghostTileX, ghostTileY, Map::UP))
                     distanceUP = map->getDist(II(ghostTileX, ghostTileY - 1), II(ghostNextTileX, ghostNextTileY), Map::UP);

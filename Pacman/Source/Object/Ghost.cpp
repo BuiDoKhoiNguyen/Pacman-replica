@@ -9,7 +9,10 @@ Ghost::Ghost(int tileX, int tileY, bool inCage) : Object(tileX, tileY) {
     scattering = false;
     nextTileX = tileX, nextTileY = tileY;
     this->inCage = inCage;
-    if (inCage == false) ghostDir = RIGHT;
+    if (inCage == false){
+        if (rand() % 2 == 0) ghostDir = LEFT;
+        else ghostDir = RIGHT;
+    }
     else ghostDir = UP;
 }
 

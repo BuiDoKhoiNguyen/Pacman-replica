@@ -58,7 +58,7 @@ void TickManager::resetTick(const int level) {
     mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
     mode.push(CID(CHASING_MODE, CHASING_TIME));
     mode.push(CID(SCATTERING_MODE, SCATTERING_TIME));
-    FRIGHTEN_TIME = 5.0;
+    //FRIGHTEN_TIME = 5.0;
 
     lastTick = SDL_GetTicks();
     // else
@@ -101,12 +101,6 @@ void TickManager::updateStatus() {
     }
 }
 
-void TickManager::stablizeFPS() {
-    if (SDL_GetTicks() - lastFrame < 1000 / FPS) {
-        SDL_Delay(1000 / FPS + lastFrame - SDL_GetTicks());
-    }
-    lastFrame = SDL_GetTicks();
-}
 
 bool TickManager::pauseTick(const bool status) {
     return pause = status;
@@ -115,7 +109,7 @@ bool TickManager::pauseTick(const bool status) {
 bool TickManager::isFrightenTime() const {
     return mode.top().first == FRIGHTEN_MODE;
 }
-
+//render animation when ghost frighten
 double TickManager::remainFrightenTime() const {
     return FRIGHTEN_TIME - (SDL_GetTicks() - lastTick) / 1000.0;
 }
